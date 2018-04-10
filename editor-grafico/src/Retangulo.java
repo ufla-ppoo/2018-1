@@ -1,25 +1,29 @@
 
-public class Retangulo {
+public class Retangulo extends FormaGeometrica {
 
     private double altura;
     private double largura;
-    private double posX;
-    private double posY;
-    private String cor;
 
-    public Retangulo(double altura, double largura, double posX, double posY, String cor) {
+    public Retangulo(double altura, double largura, double posX,
+            double posY, String cor) {
+        super(posX, posY, cor);
         this.altura = altura;
         this.largura = largura;
-        this.posX = posX;
-        this.posY = posY;
-        this.cor = cor;
     }
 
-    public double obterPosX() {
-        return posX;
+    @Override
+    public void exibir() {
+        System.out.printf("Retângulo (%.2f x %.2f)",
+                altura, largura);
+        super.exibir();
     }
 
-    public double obterPosY() {
-        return posY;
+    public double getAltura() {
+        return altura;
     }
+
+    public double getLargura() {
+        return largura;
+    }
+
 }

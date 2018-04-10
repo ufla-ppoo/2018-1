@@ -1,21 +1,22 @@
+
 import java.util.ArrayList;
+
 
 public class Painel {
 
-    private ArrayList<Retangulo> retangulos;
+    private ArrayList<FormaGeometrica> fGeometricas;
 
     public Painel() {
-        this.retangulos = new ArrayList<Retangulo>();
+        fGeometricas = new ArrayList<FormaGeometrica>();
     }
-
-    public void adicionarElemento(Retangulo r) {
-        retangulos.add(r);
+    
+    public void adicionarElemento(FormaGeometrica fg) {
+        fGeometricas.add(fg);
     }
 
     public void exibir() {
-        for (Retangulo r : retangulos) {
-            System.out.printf("[%.2f; %.2f]\n",
-                    r.obterPosX(), r.obterPosY());
+        for (FormaGeometrica fg : fGeometricas) {
+            fg.exibir();
         }
     }
 }
