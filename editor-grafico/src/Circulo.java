@@ -13,19 +13,17 @@ public class Circulo extends FormaGeometrica {
     public double getRaio() {
         return raio;
     }
-    
+
     @Override
     public double getArea() {
         return PI * raio * raio;
     }
-
+    
     @Override
     public void exibir() {
-        System.out.printf("Círculo (r = %.2f)", 
+        System.out.printf("Círculo (r = %.2f)",
                 raio);
         super.exibir();
     }
 
-    
-    
 }

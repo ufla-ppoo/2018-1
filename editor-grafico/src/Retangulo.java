@@ -13,7 +13,7 @@ public class Retangulo extends FormaGeometrica {
 
     @Override
     public void exibir() {
-        System.out.printf("Retângulo (%.2f x %.2f)", 
+        System.out.printf("Retângulo (%.2f x %.2f)",
                 altura, largura);
         super.exibir();
     }
