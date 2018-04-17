@@ -4,5 +4,5 @@ Este repositório contém o código-fonte dos projetos desenvolvidos em sala de 
 * [Notas de aluno](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/exercicio-notas-aluno) - exercício resolvido no final da primeira aula sobre Conceitos Básicos de OO.
 * [Dicionário](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/exercicio-dicionario) - exercício resolvido no final da segunda aula sobre Conceitos Básicos de OO.
 * [Editor gráfico](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/editor-grafico) - projeto desenvolvido em sala, na aula sobre Polimorfismo.
+* [Editor gráfico - versão 2](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/editor-grafico-v2) - continuação do projeto editor gráfico, incluindo os conceitos de classes abstratas e interfaces.
 * [Imobiliária](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/imobiliaria) - exercício resolvido na aula prática sobre Polimorfismo. Há uma vídeo-aula com a explicação da resolução desse exercício, [disponível aqui](https://youtu.be/vOV4Xi43HyM). 
-
