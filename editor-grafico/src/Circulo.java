@@ -4,6 +4,11 @@ public class Circulo extends FormaGeometrica {
     private final double PI = 3.1415;
     private double raio;
 
+    public String toString() {
+        return "Oi " + raio;
+    }
+    
+    
     public Circulo(double raio, double posX, double posY,
             String cor) {
         super(posX, posY, cor);
@@ -26,4 +31,5 @@ public class Circulo extends FormaGeometrica {
         super.exibir();
     }
 
+    
 }

@@ -3,25 +3,25 @@ import java.util.ArrayList;
 
 public class Painel {
 
-    private ArrayList<FormaGeometrica> fGeometricas;
+    private ArrayList<ObjetoDesenhavel> objsDesenhaveis;
 
     public Painel() {
-        fGeometricas = new ArrayList<FormaGeometrica>();
+        objsDesenhaveis = new ArrayList<ObjetoDesenhavel>();
     }
 
-    public void adicionarElemento(FormaGeometrica fg) {
-        fGeometricas.add(fg);
+    public void adicionarElemento(ObjetoDesenhavel fg) {
+        objsDesenhaveis.add(fg);
     }
 
     public void exibir() {
-        for (FormaGeometrica fg : fGeometricas) {
+        for (ObjetoDesenhavel fg : objsDesenhaveis) {
             fg.exibir();
         }
     }
     
     public double calcArea() {
         double soma = 0.0;
-        for (FormaGeometrica fg : fGeometricas) {
+        for (ObjetoDesenhavel fg : objsDesenhaveis) {
             soma = soma + fg.getArea();
         }
         return soma;

@@ -1,5 +1,5 @@
 
-public class FormaGeometrica {
+public abstract class FormaGeometrica implements ObjetoDesenhavel {
 
     private double posX;
     private double posY;
@@ -11,15 +11,11 @@ public class FormaGeometrica {
         this.cor = cor;
     }
     
-    public double getArea() {
-        return 0.0;
-    }
-    
     public void exibir() {
         System.out.printf(" -> [%.2f; %.2f]\n",
                 posX, posY);
     }
-
+    
     public double getPosX() {
         return posX;
     }
