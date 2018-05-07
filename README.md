@@ -7,3 +7,4 @@ Este repositório contém o código-fonte dos projetos desenvolvidos em sala de 
 * [Editor gráfico - versão 2](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/editor-grafico) - continuação do projeto editor gráfico, incluindo os conceitos de classes abstratas e interfaces.
 * [Imobiliária](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/imobiliaria) - exercício resolvido na aula prática sobre Polimorfismo - Parte 1. Há uma vídeo-aula com a explicação da resolução desse exercício, [disponível aqui](https://youtu.be/vOV4Xi43HyM). 
 * [Locadora](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/locadora) - exercício resolvido na aula prática sobre Polimorfismo - Parte 2. Há uma vídeo-aula com a explicação da resolução desse exercício, [disponível aqui](https://youtu.be/We2N4zrYU5g). 
+* [Todo list - v1](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/Todolist-v1) - exercício resolvido na aula sobre GUI - Parte 1 .
