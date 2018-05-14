@@ -1,17 +1,23 @@
 package br.ufla.dcc.ppoo.todolist.gui;
 
+import br.ufla.dcc.ppoo.todolist.tarefa.Tarefa;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class TelaPrincipal extends JFrame {
@@ -25,7 +31,7 @@ public class TelaPrincipal extends JFrame {
     private JLabel lbDeadline;
 
     // Caixas de texto
-    private JTextField tfDescricao;
+    private JTextField tfTarefa;
     private JTextField tfDeadline;
 
     // Componentes necessários para uso da tabela de dados
@@ -35,8 +41,8 @@ public class TelaPrincipal extends JFrame {
     private JScrollPane painelTarefas;
 
     // Botões
-    private JButton btCriarNovo;
     private JButton btSalvar;
+    private JButton btCopiar;
     private JButton btRemover;
     private JPanel painelBotoes; // container para os botões da tela
 
@@ -69,19 +75,41 @@ public class TelaPrincipal extends JFrame {
         lbDescricao = new JLabel("Tarefa");
         lbDeadline = new JLabel("Deadline");
 
-        tfDescricao = new JTextField(29); // 15 refere-se ao tamanho da caixa de texto 
+        tfTarefa = new JTextField(29); // 15 refere-se ao tamanho da caixa de texto 
         tfDeadline = new JTextField(7); // 15 refere-se ao tamanho da caixa de texto
 
-        btCriarNovo = new JButton("Nova tarefa");
-        btCriarNovo.setEnabled(false); // define que o botão não está habilitado (não pode ser clicado)
         btSalvar = new JButton("Salvar");
+
+        // Cria uma classe interna anônima para tratar o evento de clique sobre o botão "Salvar"
+        btSalvar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                salvarTarefa();
+            }
+        });
+
+        btCopiar = new JButton("Copiar");
+        btCopiar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                copiarTarefa();
+            }
+        });
+
         btRemover = new JButton("Remover");
-        btRemover.setEnabled(false); // define que o botão não está habilitado (não pode ser clicado)
+        btRemover.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                removerTarefa();
+            }
+        });
+
+        configurarBotoesEstadoInsercao();
 
         // Instancia o painel (container) de botões e adiciona os botões a ele
         painelBotoes = new JPanel(new GridLayout(1, 3, 5, 5));
         painelBotoes.add(btSalvar);
-        painelBotoes.add(btCriarNovo);
+        painelBotoes.add(btCopiar);
         painelBotoes.add(btRemover);
 
         // Constrói o modelo de dados 
@@ -91,16 +119,14 @@ public class TelaPrincipal extends JFrame {
         mdDados.addColumn("Tarefa");
         mdDados.addColumn("Deadline");
 
-        // Adiciona linhas de dados "fake" ao modelo de dados
-        for (int i = 0; i < 70; i++) {
-            String[] dadosFake = new String[2];
-            dadosFake[0] = "Tarefa " + (i + 1);
-            dadosFake[1] = "09/05/2018";
-            mdDados.addRow(dadosFake);
-        }
-
         // Constrói a tabela, com base no modelo de dados
         tbTarefas = new JTable(mdDados);
+        tbTarefas.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent lse) {
+                configurarBotoesEstadoSelecao();
+            }
+        });
 
         // Configura o tamanho das colunas da tabela
         tbTarefas.getColumnModel().getColumn(0).setMaxWidth(400);
@@ -112,11 +138,109 @@ public class TelaPrincipal extends JFrame {
         // Adicionando os componentes recém-criados à tela
         adicionarComponente(lbDescricao, GridBagConstraints.CENTER, GridBagConstraints.NONE, 0, 0, 1, 1);
         adicionarComponente(lbDeadline, GridBagConstraints.CENTER, GridBagConstraints.NONE, 0, 1, 1, 1);
-        adicionarComponente(tfDescricao, GridBagConstraints.EAST, GridBagConstraints.BOTH, 1, 0, 1, 1);
+        adicionarComponente(tfTarefa, GridBagConstraints.EAST, GridBagConstraints.BOTH, 1, 0, 1, 1);
         adicionarComponente(tfDeadline, GridBagConstraints.EAST, GridBagConstraints.BOTH, 1, 1, 1, 1);
         adicionarComponente(painelBotoes, GridBagConstraints.CENTER, GridBagConstraints.BOTH, 2, 0, 2, 1);
         adicionarComponente(painelTarefas, GridBagConstraints.CENTER, GridBagConstraints.BOTH, 3, 0, 2, 1);
+    }
 
+    private void configurarBotoesEstadoInsercao() {
+        btCopiar.setEnabled(false);
+        btRemover.setEnabled(false);
+        btSalvar.setEnabled(true);
+    }
+
+    private void configurarBotoesEstadoSelecao() {
+        btCopiar.setEnabled(true);
+        btRemover.setEnabled(true);
+        btSalvar.setEnabled(false);
+    }
+
+    private void adicionarTarefa(Tarefa t) {
+        String[] dados = new String[2];
+        dados[0] = t.getTarefa();
+        dados[1] = t.getDeadline();
+        mdDados.addRow(dados);
+    }
+
+    private void copiarTarefa() {
+        Tarefa t = obterTarefaSelecionada();
+        if (t != null) {
+            tfTarefa.setText(t.getTarefa());
+            tfDeadline.setText(t.getDeadline());
+
+            // Desmarca a linha selecionada na tabela pelo usuário
+            tbTarefas.getSelectionModel().clearSelection();
+
+            configurarBotoesEstadoInsercao();
+        }
+    }
+
+    private void removerTarefa() {
+        // Captura a linha da tabela que foi selecionada pelo usuário
+        int linhaSelecionada = tbTarefas.getSelectedRow();
+
+        // Garante que a linha seleciona está dentro de um limite aceito: [0, quantidade de linhas - 1]
+        if (linhaSelecionada >= 0 && linhaSelecionada < mdDados.getRowCount()) {
+            if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(this, "Deseja realmente remover esta tarefa?",
+                    "Confirmar remoção", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
+                mdDados.removeRow(linhaSelecionada);
+
+                // Desmarca a linha selecionada na tabela pelo usuário
+                tbTarefas.getSelectionModel().clearSelection();
+
+                configurarBotoesEstadoInsercao();
+            }
+        }
+    }
+
+    private Tarefa obterTarefaSelecionada() {
+        // Captura a linha da tabela que foi selecionada pelo usuário
+        int linhaSelecionada = tbTarefas.getSelectedRow();
+
+        // Garante que a linha seleciona está dentro de um limite aceito: [0, quantidade de linhas - 1]
+        if (linhaSelecionada < 0 || linhaSelecionada >= mdDados.getRowCount()) {
+            return null;
+        }
+
+        /* 
+        * Obtém os dados daquela linha, a partir do modelo de dados.
+        * A coluna 0 representa a descrição da tarefa e a coluna 1, seu deadline
+        * Foi necessário fazer o casting explícito para a classe "String", pois
+        * o método "getValueAt" retorna um objeto da classe "Object"
+         */
+        Tarefa t = new Tarefa(
+                (String) mdDados.getValueAt(linhaSelecionada, 0),
+                (String) mdDados.getValueAt(linhaSelecionada, 1)
+        );
+
+        return t;
+    }
+
+    private void salvarTarefa() {
+        /* 
+        * Verifica se a descrição ou o deadline da tarefa não foram informados pelo usuário.
+        * O método getText() retorna uma string que representa o texto digitado pelo usuário na caixa de texto.
+        * O método trim() remove espaços em branco do início e do fim de uma string.
+        * O método isEmpty() retorna "true" caso uma string esteja vazia (sem caracteres) e "false", caso contrário.
+         */
+        if (!tfTarefa.getText().trim().isEmpty() && !tfDeadline.getText().trim().isEmpty()) {
+            Tarefa t = new Tarefa(tfTarefa.getText(), tfDeadline.getText());
+
+            // Adiciona a tarefa na tabela.
+            adicionarTarefa(t);
+
+            // Limpa os campos de texto.
+            tfTarefa.setText("");
+            tfDeadline.setText("");
+
+            // Configura estado dos botões
+            configurarBotoesEstadoInsercao();
+
+            // Envia mensagem na tela
+            JOptionPane.showMessageDialog(this, "Tarefa adicionada com sucesso!",
+                    "Parabéns", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     private void adicionarComponente(Component comp, int anchor, int fill, int linha, int coluna, int larg, int alt) {
