@@ -35,8 +35,8 @@ public class TelaPrincipal extends JFrame {
     private JScrollPane painelTarefas;
 
     // Botões
-    private JButton btCriarNovo;
     private JButton btSalvar;
+    private JButton btCopiar;
     private JButton btRemover;
     private JPanel painelBotoes; // container para os botões da tela
 
@@ -72,16 +72,16 @@ public class TelaPrincipal extends JFrame {
         tfDescricao = new JTextField(29); // 15 refere-se ao tamanho da caixa de texto 
         tfDeadline = new JTextField(7); // 15 refere-se ao tamanho da caixa de texto
 
-        btCriarNovo = new JButton("Nova tarefa");
-        btCriarNovo.setEnabled(false); // define que o botão não está habilitado (não pode ser clicado)
         btSalvar = new JButton("Salvar");
+        btCopiar = new JButton("Copiar");
+        btCopiar.setEnabled(false); // define que o botão não está habilitado (não pode ser clicado)
         btRemover = new JButton("Remover");
         btRemover.setEnabled(false); // define que o botão não está habilitado (não pode ser clicado)
 
         // Instancia o painel (container) de botões e adiciona os botões a ele
         painelBotoes = new JPanel(new GridLayout(1, 3, 5, 5));
         painelBotoes.add(btSalvar);
-        painelBotoes.add(btCriarNovo);
+        painelBotoes.add(btCopiar);
         painelBotoes.add(btRemover);
 
         // Constrói o modelo de dados 
