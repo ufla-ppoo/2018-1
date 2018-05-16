@@ -186,11 +186,12 @@ public class TelaPrincipal extends JFrame {
                     "Confirmar remoção", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
                 mdDados.removeRow(linhaSelecionada);
 
-                // Desmarca a linha selecionada na tabela pelo usuário
-                tbTarefas.getSelectionModel().clearSelection();
-
-                configurarBotoesEstadoInsercao();
             }
+
+            // Desmarca a linha selecionada na tabela pelo usuário
+            tbTarefas.getSelectionModel().clearSelection();
+            configurarBotoesEstadoInsercao();
+c
         }
     }
 
