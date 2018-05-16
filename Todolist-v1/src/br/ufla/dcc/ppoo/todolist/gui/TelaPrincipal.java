@@ -21,11 +21,11 @@ public class TelaPrincipal extends JFrame {
     private GridBagLayout gbl;
 
     // Rótulos
-    private JLabel lbDescricao;
+    private JLabel lbTarefa;
     private JLabel lbDeadline;
 
     // Caixas de texto
-    private JTextField tfDescricao;
+    private JTextField tfTarefa;
     private JTextField tfDeadline;
 
     // Componentes necessários para uso da tabela de dados
@@ -66,10 +66,10 @@ public class TelaPrincipal extends JFrame {
         setLayout(gbl);
 
         // Instancia os objetos referentes aos componentes da tela
-        lbDescricao = new JLabel("Tarefa");
+        lbTarefa = new JLabel("Tarefa");
         lbDeadline = new JLabel("Deadline");
 
-        tfDescricao = new JTextField(29); // 15 refere-se ao tamanho da caixa de texto 
+        tfTarefa = new JTextField(29); // 15 refere-se ao tamanho da caixa de texto 
         tfDeadline = new JTextField(7); // 15 refere-se ao tamanho da caixa de texto
 
         btSalvar = new JButton("Salvar");
@@ -110,9 +110,9 @@ public class TelaPrincipal extends JFrame {
         painelTarefas = new JScrollPane(tbTarefas);
 
         // Adicionando os componentes recém-criados à tela
-        adicionarComponente(lbDescricao, GridBagConstraints.CENTER, GridBagConstraints.NONE, 0, 0, 1, 1);
+        adicionarComponente(lbTarefa, GridBagConstraints.CENTER, GridBagConstraints.NONE, 0, 0, 1, 1);
         adicionarComponente(lbDeadline, GridBagConstraints.CENTER, GridBagConstraints.NONE, 0, 1, 1, 1);
-        adicionarComponente(tfDescricao, GridBagConstraints.EAST, GridBagConstraints.BOTH, 1, 0, 1, 1);
+        adicionarComponente(tfTarefa, GridBagConstraints.EAST, GridBagConstraints.BOTH, 1, 0, 1, 1);
         adicionarComponente(tfDeadline, GridBagConstraints.EAST, GridBagConstraints.BOTH, 1, 1, 1, 1);
         adicionarComponente(painelBotoes, GridBagConstraints.CENTER, GridBagConstraints.BOTH, 2, 0, 2, 1);
         adicionarComponente(painelTarefas, GridBagConstraints.CENTER, GridBagConstraints.BOTH, 3, 0, 2, 1);
