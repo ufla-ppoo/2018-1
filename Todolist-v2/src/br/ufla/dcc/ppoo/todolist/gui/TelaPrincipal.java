@@ -1,6 +1,5 @@
 package br.ufla.dcc.ppoo.todolist.gui;
 
-import br.ufla.dcc.ppoo.todolist.tarefa.Tarefa;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -156,52 +155,9 @@ public class TelaPrincipal extends JFrame {
         btSalvar.setEnabled(false);
     }
 
-    private void adicionarTarefa(Tarefa t) {
-        String[] dados = new String[2];
-        dados[0] = t.getTarefa();
-        dados[1] = t.getDeadline();
-        mdDados.addRow(dados);
-    }
-
     private void copiarTarefa() {
-        Tarefa t = obterTarefaSelecionada();
-        if (t != null) {
-            tfTarefa.setText(t.getTarefa());
-            tfDeadline.setText(t.getDeadline());
-
-            // Desmarca a linha selecionada na tabela pelo usuário
-            tbTarefas.getSelectionModel().clearSelection();
-
-            configurarBotoesEstadoInsercao();
-        }
-    }
-
-    private void removerTarefa() {
         // Captura a linha da tabela que foi selecionada pelo usuário
         int linhaSelecionada = tbTarefas.getSelectedRow();
-
-        // Garante que a linha seleciona está dentro de um limite aceito: [0, quantidade de linhas - 1]
-        if (linhaSelecionada >= 0 && linhaSelecionada < mdDados.getRowCount()) {
-            if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(this, "Deseja realmente remover esta tarefa?",
-                    "Confirmar remoção", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
-                mdDados.removeRow(linhaSelecionada);
-
-            }
-
-            // Desmarca a linha selecionada na tabela pelo usuário
-            tbTarefas.getSelectionModel().clearSelection();
-            configurarBotoesEstadoInsercao();
-        }
-    }
-
-    private Tarefa obterTarefaSelecionada() {
-        // Captura a linha da tabela que foi selecionada pelo usuário
-        int linhaSelecionada = tbTarefas.getSelectedRow();
-
-        // Garante que a linha seleciona está dentro de um limite aceito: [0, quantidade de linhas - 1]
-        if (linhaSelecionada < 0 || linhaSelecionada >= mdDados.getRowCount()) {
-            return null;
-        }
 
         /* 
         * Obtém os dados daquela linha, a partir do modelo de dados.
@@ -209,12 +165,28 @@ public class TelaPrincipal extends JFrame {
         * Foi necessário fazer o casting explícito para a classe "String", pois
         * o método "getValueAt" retorna um objeto da classe "Object"
          */
-        Tarefa t = new Tarefa(
-                (String) mdDados.getValueAt(linhaSelecionada, 0),
-                (String) mdDados.getValueAt(linhaSelecionada, 1)
-        );
+        tfTarefa.setText((String) mdDados.getValueAt(linhaSelecionada, 0));
+        tfDeadline.setText((String) mdDados.getValueAt(linhaSelecionada, 1));
 
-        return t;
+        // Desmarca a linha selecionada na tabela pelo usuário
+        tbTarefas.getSelectionModel().clearSelection();
+
+        configurarBotoesEstadoInsercao();
+    }
+
+    private void removerTarefa() {
+        if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(this, "Deseja realmente remover esta tarefa?",
+                "Confirmar remoção", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
+
+            // Captura a linha da tabela que foi selecionada pelo usuário
+            int linhaSelecionada = tbTarefas.getSelectedRow();
+
+            mdDados.removeRow(linhaSelecionada);
+        }
+
+        // Desmarca a linha selecionada na tabela pelo usuário
+        tbTarefas.getSelectionModel().clearSelection();
+        configurarBotoesEstadoInsercao();
     }
 
     private void salvarTarefa() {
@@ -225,10 +197,12 @@ public class TelaPrincipal extends JFrame {
         * O método isEmpty() retorna "true" caso uma string esteja vazia (sem caracteres) e "false", caso contrário.
          */
         if (!tfTarefa.getText().trim().isEmpty() && !tfDeadline.getText().trim().isEmpty()) {
-            Tarefa t = new Tarefa(tfTarefa.getText(), tfDeadline.getText());
 
             // Adiciona a tarefa na tabela.
-            adicionarTarefa(t);
+            String[] dados = new String[2];
+            dados[0] = tfTarefa.getText();
+            dados[1] = tfDeadline.getText();
+            mdDados.addRow(dados);
 
             // Limpa os campos de texto.
             tfTarefa.setText("");
@@ -239,7 +213,12 @@ public class TelaPrincipal extends JFrame {
 
             // Envia mensagem na tela
             JOptionPane.showMessageDialog(this, "Tarefa adicionada com sucesso!",
-                    "Parabéns", JOptionPane.INFORMATION_MESSAGE);
+                    "Parabéns :)", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+
+            // Envia mensagem de erro na tela
+            JOptionPane.showMessageDialog(this, "A descrição ou deadline de uma tarefa não podem estar vazios!",
+                    "Ops... algo deu errado :(", JOptionPane.ERROR_MESSAGE);
         }
     }
 
