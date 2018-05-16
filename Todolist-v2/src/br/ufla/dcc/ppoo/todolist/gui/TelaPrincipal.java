@@ -191,7 +191,6 @@ public class TelaPrincipal extends JFrame {
             // Desmarca a linha selecionada na tabela pelo usuário
             tbTarefas.getSelectionModel().clearSelection();
             configurarBotoesEstadoInsercao();
-c
         }
     }
 
