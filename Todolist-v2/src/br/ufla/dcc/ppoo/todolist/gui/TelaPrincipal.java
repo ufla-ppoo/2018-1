@@ -176,7 +176,7 @@ public class TelaPrincipal extends JFrame {
 
     private void removerTarefa() {
         if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(this, "Deseja realmente remover esta tarefa?",
-                "Confirmar remoção", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
+                "Confirmar remoção ;)", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
 
             // Captura a linha da tabela que foi selecionada pelo usuário
             int linhaSelecionada = tbTarefas.getSelectedRow();
