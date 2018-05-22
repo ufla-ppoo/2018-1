@@ -259,11 +259,13 @@ public class TelaPrincipal extends JFrame {
             // Envia mensagem na tela
             JOptionPane.showMessageDialog(this, "Tarefa adicionada com sucesso!",
                     "Parabéns :)", JOptionPane.INFORMATION_MESSAGE);
-        } catch (Exception ex) {
+        } catch (DeadlineInvalidoException | TarefaInvalidaException ex) {
             // Envia mensagem de erro na tela
             JOptionPane.showMessageDialog(this, ex.getMessage(),
                     "Ops... algo deu errado :(", JOptionPane.ERROR_MESSAGE);
-        }
+        } 
+        // Se o tratamento das exceções fosse diferente, precisaríamos de um bloco
+        // catch para cada tipo de exceção.
     }
 
     private void adicionarComponente(Component comp, int anchor, int fill, int linha, int coluna, int larg, int alt) {
