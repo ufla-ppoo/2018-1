@@ -1,5 +1,6 @@
 package br.ufla.dcc.ppoo.todolist.gui;
 
+import br.dcc.ufla.ppoo.todolist.tarefa.Tarefa;
 import br.ufla.dcc.ppoo.todolist.excecoes.DeadlineInvalidoException;
 import br.ufla.dcc.ppoo.todolist.excecoes.TarefaInvalidaException;
 import java.awt.Color;
@@ -11,12 +12,19 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,6 +35,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 public class TelaPrincipal extends JFrame {
@@ -71,6 +81,9 @@ public class TelaPrincipal extends JFrame {
         // carrega configurações do programa
         carregarConfiguracoes();
 
+        // tenta ler tarefas já existentes em arquivo
+        lerTarefasDoArquivo();
+
         // Redimensiona automaticamente a tela, com base nos componentes existentes na mesma
         pack();
 
@@ -80,31 +93,32 @@ public class TelaPrincipal extends JFrame {
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader("config.txt"));
-            
+
             // Lê o título da janela
             if (br.ready()) {
                 String titulo = br.readLine();
                 setTitle(titulo);
-            }
 
-            // Lê a cor de fundo da janela
-            if (br.ready()) {
-                String cor = br.readLine();
-                switch (cor) {
-                    case "AMARELO":
-                        getContentPane().setBackground(Color.yellow);
-                        break;
-                    case "VERDE":
-                        getContentPane().setBackground(Color.green);
-                        break;
-                    case "BRANCO":
-                        getContentPane().setBackground(Color.white);
-                        break;
-                    case "PRETO":
-                        getContentPane().setBackground(Color.black);
-                        break;                        
+                // Lê a cor de fundo da janela
+                if (br.ready()) {
+                    String cor = br.readLine();
+                    switch (cor) {
+                        case "AMARELO":
+                            getContentPane().setBackground(Color.yellow);
+                            break;
+                        case "VERDE":
+                            getContentPane().setBackground(Color.green);
+                            break;
+                        case "BRANCO":
+                            getContentPane().setBackground(Color.white);
+                            break;
+                        case "PRETO":
+                            getContentPane().setBackground(Color.black);
+                            break;
+                    }
                 }
             }
+
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Arquivo de configurações não encontrado. O programa será executado\ncom as configurações padrão!",
                     "Ops... algo deu errado :(", JOptionPane.ERROR_MESSAGE);
@@ -113,7 +127,74 @@ public class TelaPrincipal extends JFrame {
                 try {
                     br.close();
                 } catch (IOException ioex) {
-                    JOptionPane.showMessageDialog(this, "Erro ao fechar arquivo de configurações!",
+                    JOptionPane.showMessageDialog(this, "Erro ao fechar o arquivo de configurações!",
+                            "Ops... algo deu errado :(", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }
+
+    private List<Tarefa> obterTarefasDaTabela() {
+        List<Tarefa> tarefas = new ArrayList<Tarefa>();
+        for (int i = 0; i < mdDados.getRowCount(); i++) {
+            // Cria uma tarefa, a partir dos dados que estão na linha "i" da tabela de tarefas
+            Tarefa t = new Tarefa(
+                    (String) mdDados.getValueAt(i, 0),
+                    (String) mdDados.getValueAt(i, 1));
+
+            tarefas.add(t);
+        }
+        return tarefas;
+    }
+
+    private void incluirTarefasNaTabela(List<Tarefa> tarefas) {
+        for (Tarefa t : tarefas) {
+            // Adiciona a tarefa na tabela.
+            String[] dados = new String[2];
+            dados[0] = t.getTarefa();
+            dados[1] = t.getDeadline();
+            mdDados.addRow(dados);
+        }
+    }
+
+    private void gravarTarefasEmArquivo() {
+        ObjectOutputStream oos = null;
+        try {
+            oos = new ObjectOutputStream(new FileOutputStream("tarefas.bin"));
+            oos.writeObject(obterTarefasDaTabela());
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar tarefas em arquivo!",
+                    "Ops... algo deu errado :(", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            if (oos != null) {
+                try {
+                    oos.close();
+                } catch (IOException ioex) {
+                    JOptionPane.showMessageDialog(this, "Erro ao fechar o arquivo de tarefas!",
+                            "Ops... algo deu errado :(", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }
+
+    private void lerTarefasDoArquivo() {
+        ObjectInputStream ois = null;
+        try {
+            File f = new File("tarefas.bin");
+            if (f.exists()) {
+                ois = new ObjectInputStream(new FileInputStream(f));
+                List<Tarefa> tarefas = (List<Tarefa>) ois.readObject();
+                incluirTarefasNaTabela(tarefas);
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao ler tarefas do arquivo!",
+                    "Ops... algo deu errado :(", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            if (ois != null) {
+                try {
+                    ois.close();
+                } catch (IOException ioex) {
+                    JOptionPane.showMessageDialog(this, "Erro ao fechar o arquivo de tarefas!",
                             "Ops... algo deu errado :(", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -175,6 +256,13 @@ public class TelaPrincipal extends JFrame {
         // Adicionando colunas ao modelo de dados. 
         mdDados.addColumn("Tarefa");
         mdDados.addColumn("Deadline");
+
+        mdDados.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent tme) {
+                gravarTarefasEmArquivo();
+            }
+        });
 
         // Constrói a tabela, com base no modelo de dados
         tbTarefas = new JTable(mdDados);
