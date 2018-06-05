@@ -10,3 +10,4 @@ Este repositório contém o código-fonte dos projetos desenvolvidos em sala de 
 * [Todo list - v1](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/Todolist-v1) - exercício resolvido na aula sobre GUI - Parte 1.
 * [Todo list - v2](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/Todolist-v2) - exercício resolvido na aula sobre GUI - Parte 2 (inclui tratamento de eventos). Há uma série de 4 (quatro) vídeo-aulas com o passo-a-passo da construção desse programa, [disponível aqui](https://www.youtube.com/playlist?list=PLiy8wJ_Cr0BCYxAhnNtq3jUwi2ovtq4fU). 
 * [Todo list - v3](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/Todolist-v3) - exercício resolvido na aula sobre Tratamento de Exceção. Há uma vídeo-aula com a explicação da resolução desse exercício, [disponível aqui](https://youtu.be/IK66JooEKl8). 
+* [Todo list - v4](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/Todolist-v4) - exercício resolvido na aula sobre Arquivos. 

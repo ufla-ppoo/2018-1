@@ -180,9 +180,8 @@ public class TelaPrincipal extends JFrame {
     private void lerTarefasDoArquivo() {
         ObjectInputStream ois = null;
         try {
+            // Verifica se o arquivo existe antes de lê-lo
             File f = new File("tarefas.bin");
-            
-            // Verifica se o arquivo existe antes de lê-lo.
             if (f.exists()) {
                 ois = new ObjectInputStream(new FileInputStream(f));
                 List<Tarefa> tarefas = (List<Tarefa>) ois.readObject();

@@ -2,6 +2,7 @@ package br.ufla.dcc.ppoo.todolist.gui;
 
 import br.ufla.dcc.ppoo.todolist.excecoes.DeadlineInvalidoException;
 import br.ufla.dcc.ppoo.todolist.excecoes.TarefaInvalidaException;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -60,12 +61,13 @@ public class TelaPrincipal extends JFrame {
 
         // Evita que a tela possa ser redimensionada pelo usuário
         setResizable(false);
-
+        
         // Invoca o método que efetivamente constrói a tela
         construirTela();
 
         // Redimensiona automaticamente a tela, com base nos componentes existentes na mesma
         pack();
+        
     }
 
     private void construirTela() {
