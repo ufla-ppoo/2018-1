@@ -12,7 +12,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -82,7 +81,7 @@ public class TelaPrincipal extends JFrame {
         carregarConfiguracoes();
 
         // tenta ler tarefas já existentes em arquivo
-        lerTarefasDoArquivo();
+        carregarTarefasDoArquivo();
 
         // Redimensiona automaticamente a tela, com base nos componentes existentes na mesma
         pack();
@@ -134,10 +133,11 @@ public class TelaPrincipal extends JFrame {
         }
     }
 
-    private List<Tarefa> obterTarefasDaTabela() {
+    private List<Tarefa> obterListaTarefas() {
         List<Tarefa> tarefas = new ArrayList<Tarefa>();
         for (int i = 0; i < mdDados.getRowCount(); i++) {
-            // Cria uma tarefa, a partir dos dados que estão na linha "i" da tabela de tarefas
+            // Cria uma tarefa, a partir dos dados que estão na linha "i" 
+            // da tabela de tarefas
             Tarefa t = new Tarefa(
                     (String) mdDados.getValueAt(i, 0),
                     (String) mdDados.getValueAt(i, 1));
@@ -147,7 +147,7 @@ public class TelaPrincipal extends JFrame {
         return tarefas;
     }
 
-    private void incluirTarefasNaTabela(List<Tarefa> tarefas) {
+    private void incluirListaTarefas(List<Tarefa> tarefas) {
         for (Tarefa t : tarefas) {
             // Adiciona a tarefa na tabela.
             String[] dados = new String[2];
@@ -157,11 +157,11 @@ public class TelaPrincipal extends JFrame {
         }
     }
 
-    private void gravarTarefasEmArquivo() {
+    private void salvarTarefasEmArquivo() {
         ObjectOutputStream oos = null;
         try {
             oos = new ObjectOutputStream(new FileOutputStream("tarefas.bin"));
-            oos.writeObject(obterTarefasDaTabela());
+            oos.writeObject(obterListaTarefas());
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Erro ao salvar tarefas em arquivo!",
                     "Ops... algo deu errado :(", JOptionPane.ERROR_MESSAGE);
@@ -177,16 +177,12 @@ public class TelaPrincipal extends JFrame {
         }
     }
 
-    private void lerTarefasDoArquivo() {
+    private void carregarTarefasDoArquivo() {
         ObjectInputStream ois = null;
         try {
-            // Verifica se o arquivo existe antes de lê-lo
-            File f = new File("tarefas.bin");
-            if (f.exists()) {
-                ois = new ObjectInputStream(new FileInputStream(f));
-                List<Tarefa> tarefas = (List<Tarefa>) ois.readObject();
-                incluirTarefasNaTabela(tarefas);
-            }
+            ois = new ObjectInputStream(new FileInputStream("tarefas.bin"));
+            List<Tarefa> tarefas = (List<Tarefa>) ois.readObject();
+            incluirListaTarefas(tarefas);
         } catch (IOException | ClassNotFoundException e) {
             JOptionPane.showMessageDialog(this, "Erro ao ler tarefas do arquivo!",
                     "Ops... algo deu errado :(", JOptionPane.ERROR_MESSAGE);
@@ -261,7 +257,7 @@ public class TelaPrincipal extends JFrame {
         mdDados.addTableModelListener(new TableModelListener() {
             @Override
             public void tableChanged(TableModelEvent tme) {
-                gravarTarefasEmArquivo();
+                salvarTarefasEmArquivo();
             }
         });
 
