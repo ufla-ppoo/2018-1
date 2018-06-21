@@ -39,6 +39,7 @@ public class TelaPrincipal extends JFrame {
 
     private TopNewsAPI tnAPI;
     private final int QTDE_NOTICIAS = 5;
+    private final String STR_QTDE_NOTICIAS = "cinco";
 
     public TelaPrincipal() {
         super("TopNews");
@@ -51,7 +52,7 @@ public class TelaPrincipal extends JFrame {
     }
 
     private String obterUltimaAtualizacao() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:MM:SS");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
         Date dtAtual = Calendar.getInstance().getTime();
         return String.format("Última atualização: %s", sdf.format(dtAtual));
     }
@@ -61,7 +62,8 @@ public class TelaPrincipal extends JFrame {
         gbc = new GridBagConstraints();
         setLayout(gbl);
 
-        lbPalavraChave = new JLabel("O que há de novo sobre...");
+        lbPalavraChave = new JLabel("Quais são as " + STR_QTDE_NOTICIAS + 
+                " notícias mais recentes sobre...");
         lbUltimaAtualizacao = new JLabel(obterUltimaAtualizacao());
         tfPalavraChave = new JTextField(35);
         btBuscar = new JButton("Atualizar");
@@ -87,6 +89,8 @@ public class TelaPrincipal extends JFrame {
                 1, 1, 1, 1);
         adicionarComponente(scrollNoticias, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                 2, 0, 2, 1);
+        adicionarComponente(lbUltimaAtualizacao, GridBagConstraints.CENTER, GridBagConstraints.NONE,
+                3, 0, 2, 1);        
 
     }
 
@@ -100,8 +104,8 @@ public class TelaPrincipal extends JFrame {
     private void atualizarNoticias() {
         try {
             String palavraChave = obterPalavraChave();
-            taNoticias.setText("");
             List<Noticia> lstNoticias = tnAPI.obterNoticiasSobre(palavraChave);
+            taNoticias.setText("");
             if (lstNoticias.isEmpty()) {
                 taNoticias.setText("Sem notícias, por enquanto...");
             } else {
@@ -122,6 +126,7 @@ public class TelaPrincipal extends JFrame {
             JOptionPane.showMessageDialog(this, pex.getMessage(),
                     "Ops...", JOptionPane.ERROR_MESSAGE);
         }
+
     }
 
     private void adicionarComponente(Component comp, int anchor, int fill, int linha, int coluna, int larg, int alt) {
