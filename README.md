@@ -13,3 +13,6 @@ Este repositório contém o código-fonte dos projetos desenvolvidos em sala de 
 * [Todo list - v4](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/Todolist-v4) - exercício resolvido na aula sobre Arquivos. Há uma vídeo-aula com a explicação da resolução desse exercício, [disponível aqui](https://www.youtube.com/playlist?list=PLiy8wJ_Cr0BCAmdQsTE_4KnHh7ix-9u0l). 
 * [Todo list - v5](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/Todolist-v5) - exercício resolvido na aula sobre Multitarefa. 
 * [Simulador do Corpo Humano](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/CorpoHumano) - exercício resolvido na aula sobre Multitarefa. 
+* [TopNews - sem thread](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/TopNewsSemThread) - projeto TopNews, usado na aula prática sobre Multitarefa.
+* [TopNews - com thread](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/TopNews) - solução so exercício proposto na aula prática sobre Multitarefa.
+ 
