@@ -66,7 +66,7 @@ public class TelaPrincipal extends JFrame {
                 " notícias mais recentes sobre...");
         lbUltimaAtualizacao = new JLabel(obterUltimaAtualizacao());
         tfPalavraChave = new JTextField(35);
-        btBuscar = new JButton("Atualizar");
+        btBuscar = new JButton("Buscar");
         btBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -142,6 +142,6 @@ public class TelaPrincipal extends JFrame {
     }
 
     public static void main(String[] args) {
-        new TelaPrincipal().setVisible(true);
+        new TelaPrincipal().setVisible(true);        
     }
 }
