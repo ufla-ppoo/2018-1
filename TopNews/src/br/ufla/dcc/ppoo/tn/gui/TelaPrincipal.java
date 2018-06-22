@@ -159,7 +159,7 @@ public class TelaPrincipal extends JFrame implements Runnable {
                     atualizarNoticias();
                 }
                 // Dorme por um minuto
-                Thread.sleep(60000);
+                Thread.sleep(10000);
             }
         } catch (InterruptedException ex) {
             System.out.println("Erro ao executar thread.");
