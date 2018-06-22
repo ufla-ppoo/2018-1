@@ -22,7 +22,7 @@ public class TopNewsAPI {
 
     public List<Noticia> obterNoticiasSobre(String palavraChave) throws IOException {
         // Os espaços em branco devem ser substituidos por palavras chave
-        palavraChave = palavraChave.replaceAll(" ", "+");
+        palavraChave = palavraChave.trim().replaceAll(" ", "+");
         URL urlConsulta = new URL(URL_BASE + API_KEY + "&sortby=popularity&q=" + palavraChave);
         JsonReader ler = Json.createReader(urlConsulta.openStream());
         JsonArray dados = ler.readObject().getJsonArray("articles");
