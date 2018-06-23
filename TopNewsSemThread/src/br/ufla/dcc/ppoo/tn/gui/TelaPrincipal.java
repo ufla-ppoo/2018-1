@@ -39,8 +39,7 @@ public class TelaPrincipal extends JFrame {
 
     private TopNewsAPI tnAPI;
     private final int QTDE_NOTICIAS = 5;
-    private final String STR_QTDE_NOTICIAS = "cinco";
-
+    
     public TelaPrincipal() {
         super("TopNews");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,8 +61,7 @@ public class TelaPrincipal extends JFrame {
         gbc = new GridBagConstraints();
         setLayout(gbl);
 
-        lbPalavraChave = new JLabel("Quais são as " + STR_QTDE_NOTICIAS + 
-                " notícias mais recentes sobre...");
+        lbPalavraChave = new JLabel("Quais são as notícias mais recentes sobre...");
         lbUltimaAtualizacao = new JLabel(obterUltimaAtualizacao());
         tfPalavraChave = new JTextField(35);
         btBuscar = new JButton("Buscar");
@@ -83,7 +81,7 @@ public class TelaPrincipal extends JFrame {
                 0, 0, 1, 1);
         adicionarComponente(tfPalavraChave, GridBagConstraints.CENTER, GridBagConstraints.NONE,
                 1, 0, 1, 1);
-        adicionarComponente(btBuscar, GridBagConstraints.CENTER, GridBagConstraints.NONE,
+        adicionarComponente(btBuscar, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 0, 1, 1, 1);
         adicionarComponente(ckbAuto, GridBagConstraints.CENTER, GridBagConstraints.NONE,
                 1, 1, 1, 1);
