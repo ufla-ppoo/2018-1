@@ -88,7 +88,7 @@ public class TelaPrincipal extends JFrame implements Runnable {
                 0, 0, 1, 1);
         adicionarComponente(tfPalavraChave, GridBagConstraints.CENTER, GridBagConstraints.NONE,
                 1, 0, 1, 1);
-        adicionarComponente(btBuscar, GridBagConstraints.CENTER, GridBagConstraints.NONE,
+        adicionarComponente(btBuscar, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 0, 1, 1, 1);
         adicionarComponente(ckbAuto, GridBagConstraints.CENTER, GridBagConstraints.NONE,
                 1, 1, 1, 1);
