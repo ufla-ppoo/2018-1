@@ -39,8 +39,7 @@ public class TelaPrincipal extends JFrame implements Runnable {
 
     private TopNewsAPI tnAPI;
     private final int QTDE_NOTICIAS = 5;
-    private final String STR_QTDE_NOTICIAS = "cinco";
-
+    
     public TelaPrincipal() {
         super("TopNews");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,12 +48,11 @@ public class TelaPrincipal extends JFrame implements Runnable {
         pack();
 
         tnAPI = new TopNewsAPI(QTDE_NOTICIAS);
-        iniciarThread();
+        iniciarAtualizadorNoticias();
     }
-
-    private void iniciarThread() {
-        Thread t = new Thread(this);
-        t.start();
+    
+    private void iniciarAtualizadorNoticias() {
+        new Thread(this).start();
     }
 
     private String obterUltimaAtualizacao() {
@@ -68,18 +66,19 @@ public class TelaPrincipal extends JFrame implements Runnable {
         gbc = new GridBagConstraints();
         setLayout(gbl);
 
-        lbPalavraChave = new JLabel("Quais são as " + STR_QTDE_NOTICIAS + 
-                " notícias mais recentes sobre...");
+        lbPalavraChave = new JLabel("Quais são as notícias mais recentes sobre...");
         lbUltimaAtualizacao = new JLabel(obterUltimaAtualizacao());
         tfPalavraChave = new JTextField(35);
-        btBuscar = new JButton("Atualizar");
+        btBuscar = new JButton("Buscar");
         btBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 atualizarNoticias();
             }
         });
+
         ckbAuto = new JCheckBox("automático");
+
         taNoticias = new JTextArea(30, 30);
         taNoticias.setLineWrap(true);
         taNoticias.setEditable(false);
@@ -96,7 +95,7 @@ public class TelaPrincipal extends JFrame implements Runnable {
         adicionarComponente(scrollNoticias, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                 2, 0, 2, 1);
         adicionarComponente(lbUltimaAtualizacao, GridBagConstraints.CENTER, GridBagConstraints.NONE,
-                3, 0, 2, 1);        
+                3, 0, 2, 1);
 
     }
 
@@ -158,7 +157,8 @@ public class TelaPrincipal extends JFrame implements Runnable {
                 if (ckbAuto.isSelected()) {
                     atualizarNoticias();
                 }
-                // Dorme por um minuto
+
+                // Dorme por 10 segundos
                 Thread.sleep(10000);
             }
         } catch (InterruptedException ex) {
