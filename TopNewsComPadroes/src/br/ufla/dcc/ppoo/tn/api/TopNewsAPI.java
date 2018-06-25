@@ -12,7 +12,7 @@ import javax.json.JsonReader;
 
 public class TopNewsAPI {
 
-    private final String API_KEY = "COLE_SUA_API_KEY_AQUI";
+    private final String API_KEY = "8d0e5666d07b42319a329e20e31a6b80";
     private static final String URL_BASE = "https://newsapi.org/v2/top-headlines?apiKey=";
     private int qtdeNoticias;
 
