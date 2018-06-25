@@ -1,7 +1,6 @@
 package br.ufla.dcc.ppoo.tn.gui;
 
 import br.ufla.dcc.ppoo.tn.api.TopNewsAPI;
-import br.ufla.dcc.ppoo.tn.excecoes.FabricaInexistenteException;
 import br.ufla.dcc.ppoo.tn.excecoes.PalavraChaveInvalidaException;
 import br.ufla.dcc.ppoo.tn.noticia.Noticia;
 import br.ufla.dcc.ppoo.tn.util.Configuracao;
@@ -169,18 +168,15 @@ public class TelaPrincipal extends JFrame implements Runnable {
             String tema = Configuracao.obterInstancia("config.txt").obterNomeFabrica();
             
             // Constrói a tela com o tema escolhido
-            switch (tema) {
-                case "DARK":
-                    new TelaPrincipal(new FabricaDarkElementosGraficos()).setVisible(true);
-                    break;
-                case "CONV":
-                    new TelaPrincipal(new FabricaConvElementosGraficos()).setVisible(true);
-                    break;
-                default:
-                    throw new FabricaInexistenteException();
-            }
-        } catch (FabricaInexistenteException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Ops...", JOptionPane.ERROR_MESSAGE);
+            FabricaAbstrataElementosGraficos fabrica =
+                    (FabricaAbstrataElementosGraficos) Class.forName(tema).newInstance();
+            new TelaPrincipal(fabrica).setVisible(true);
+        } catch (InstantiationException | 
+                ClassNotFoundException | 
+                IllegalAccessException |
+                IOException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível carregar o tema da aplicação. Favor verificar o aquivo de configurações!", 
+                    "Ops...", JOptionPane.ERROR_MESSAGE);
             new TelaPrincipal(new FabricaConvElementosGraficos()).setVisible(true);
         }
     }
