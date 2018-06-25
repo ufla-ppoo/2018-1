@@ -1,8 +1,10 @@
 package br.ufla.dcc.ppoo.tn.gui;
 
 import br.ufla.dcc.ppoo.tn.api.TopNewsAPI;
+import br.ufla.dcc.ppoo.tn.excecoes.FabricaInexistenteException;
 import br.ufla.dcc.ppoo.tn.excecoes.PalavraChaveInvalidaException;
 import br.ufla.dcc.ppoo.tn.noticia.Noticia;
+import br.ufla.dcc.ppoo.tn.util.Configuracao;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -40,8 +42,11 @@ public class TelaPrincipal extends JFrame implements Runnable {
     private TopNewsAPI tnAPI;
     private final int QTDE_NOTICIAS = 5;
 
-    public TelaPrincipal() {
+    private FabricaAbstrataElementosGraficos fabricaElementosGraficos;
+
+    public TelaPrincipal(FabricaAbstrataElementosGraficos fabricaElementosGraficos) {
         super("TopNews");
+        this.fabricaElementosGraficos = fabricaElementosGraficos;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         construirTela();
@@ -62,14 +67,23 @@ public class TelaPrincipal extends JFrame implements Runnable {
     }
 
     private void construirTela() {
+        setContentPane(fabricaElementosGraficos.criarPainel());
+
         gbl = new GridBagLayout();
         gbc = new GridBagConstraints();
         setLayout(gbl);
 
-        lbPalavraChave = new JLabel("Quais são as notícias mais recentes sobre...");
-        lbUltimaAtualizacao = new JLabel(obterUltimaAtualizacao());
-        tfPalavraChave = new JTextField(35);
-        btBuscar = new JButton("Buscar");
+        lbPalavraChave = fabricaElementosGraficos.criarRotulo();
+        lbPalavraChave.setText("Quais são as notícias mais recentes sobre...");
+
+        lbUltimaAtualizacao = fabricaElementosGraficos.criarRotulo();
+        lbUltimaAtualizacao.setText(obterUltimaAtualizacao());
+
+        tfPalavraChave = fabricaElementosGraficos.criarCampoTexto();
+        tfPalavraChave.setColumns(35);
+
+        btBuscar = fabricaElementosGraficos.criarBotao();
+        btBuscar.setText("Buscar");
         btBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -77,9 +91,12 @@ public class TelaPrincipal extends JFrame implements Runnable {
             }
         });
 
-        ckbAuto = new JCheckBox("automático");
+        ckbAuto = fabricaElementosGraficos.criarCaixaMarcacao();
+        ckbAuto.setText("automático");
 
-        taNoticias = new JTextArea(30, 30);
+        taNoticias = fabricaElementosGraficos.criarAreaTexto();
+        taNoticias.setColumns(30);
+        taNoticias.setRows(30);
         taNoticias.setLineWrap(true);
         taNoticias.setEditable(false);
         scrollNoticias = new JScrollPane(taNoticias);
@@ -147,7 +164,25 @@ public class TelaPrincipal extends JFrame implements Runnable {
     }
 
     public static void main(String[] args) {
-        new TelaPrincipal().setVisible(true);
+        try {
+            // Lê arquivo de configuração
+            String tema = Configuracao.obterInstancia("config.txt").obterNomeFabrica();
+            
+            // Constrói a tela com o tema escolhido
+            switch (tema) {
+                case "DARK":
+                    new TelaPrincipal(new FabricaDarkElementosGraficos()).setVisible(true);
+                    break;
+                case "CONV":
+                    new TelaPrincipal(new FabricaConvElementosGraficos()).setVisible(true);
+                    break;
+                default:
+                    throw new FabricaInexistenteException();
+            }
+        } catch (FabricaInexistenteException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Ops...", JOptionPane.ERROR_MESSAGE);
+            new TelaPrincipal(new FabricaConvElementosGraficos()).setVisible(true);
+        }
     }
 
     @Override
