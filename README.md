@@ -16,6 +16,7 @@ Este repositório contém o código-fonte dos projetos desenvolvidos em sala de 
 * [TopNews - sem thread](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/TopNewsSemThread) - projeto TopNews, usado na aula prática sobre Multitarefa.
 * [TopNews - com thread](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/TopNews) - solução so exercício proposto na aula prática sobre Multitarefa.
 * [Abstract Factory](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/AbstractFactory) - exemplo de utilizado na aula sobre Padrões de Projeto - Parte 1.
+* [Singleton](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/Singleton) - exemplo de utilizado na aula sobre Padrões de Projeto - Parte 1.
 * [TopNews - com padrões](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/TopNewsComPadroes) - solução do exercício proposto na aula sobre Padrões de Projeto - Parte 1.
 
  
