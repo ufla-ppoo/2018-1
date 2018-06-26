@@ -1,22 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package perfis;
+package br.ufla.dcc.ppoo.padroes.perfil;
 
-import elementos_graficos.BotaoDoCruzeiro;
-import elementos_graficos.CaixaTextoDoCruzeiro;
-import elementos_graficos.PainelDoCruzeiro;
-import elementos_graficos.RotuloDoCruzeiro;
+import br.ufla.dcc.ppoo.padroes.elementos_graficos.BotaoDoCruzeiro;
+import br.ufla.dcc.ppoo.padroes.elementos_graficos.CaixaTextoDoCruzeiro;
+import br.ufla.dcc.ppoo.padroes.elementos_graficos.PainelDoCruzeiro;
+import br.ufla.dcc.ppoo.padroes.elementos_graficos.RotuloDoCruzeiro;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Paulo
- */
 public class FabricaDoPerfilDoCruzeiro extends FabricaDePerfis {
 
     @Override

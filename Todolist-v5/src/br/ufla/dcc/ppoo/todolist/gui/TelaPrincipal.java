@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -32,6 +34,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
@@ -71,7 +75,7 @@ public class TelaPrincipal extends JFrame implements Runnable {
         // Define o título da tela
         super("Lista de Tarefas");
 
-        // Define que fechar a janela, a execução aplicação será encerrada
+       // Define que fechar a janela, a execução aplicação será encerrada
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Evita que a tela possa ser redimensionada pelo usuário
@@ -431,6 +435,8 @@ public class TelaPrincipal extends JFrame implements Runnable {
     }
 
     public static void main(String[] args) {
+
+        
         // Instancia um objeto da classe principal, que é uma janela, e torna a janela visível para o usuário
         new TelaPrincipal().setVisible(true);
     }
@@ -443,7 +449,7 @@ public class TelaPrincipal extends JFrame implements Runnable {
                 lbRelogio.setText(sdf.format(Calendar.getInstance().getTime()));
                 Thread.sleep(1000);
             }
-        } catch(InterruptedException ex) {
+        } catch (InterruptedException ex) {
             System.out.println("Erro ao atualizar relógio da tela!");
         }
     }

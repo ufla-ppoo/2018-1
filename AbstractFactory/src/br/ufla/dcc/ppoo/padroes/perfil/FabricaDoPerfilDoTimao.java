@@ -1,22 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package perfis;
+package br.ufla.dcc.ppoo.padroes.perfil;
 
-import elementos_graficos.BotaoDoTimao;
-import elementos_graficos.CaixaTextoDoTimao;
-import elementos_graficos.PainelDoTimao;
-import elementos_graficos.RotuloDoTimao;
+import br.ufla.dcc.ppoo.padroes.elementos_graficos.BotaoDoTimao;
+import br.ufla.dcc.ppoo.padroes.elementos_graficos.CaixaTextoDoTimao;
+import br.ufla.dcc.ppoo.padroes.elementos_graficos.PainelDoTimao;
+import br.ufla.dcc.ppoo.padroes.elementos_graficos.RotuloDoTimao;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Paulo
- */
 public class FabricaDoPerfilDoTimao extends FabricaDePerfis {
 
     @Override

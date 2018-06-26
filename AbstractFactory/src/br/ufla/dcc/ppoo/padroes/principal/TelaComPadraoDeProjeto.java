@@ -1,46 +1,37 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package principal;
+package br.ufla.dcc.ppoo.padroes.principal;
 
-import elementos_graficos.BotaoDoTimao;
-import elementos_graficos.CaixaTextoDoTimao;
-import elementos_graficos.PainelDoTimao;
-import elementos_graficos.RotuloDoTimao;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import br.ufla.dcc.ppoo.padroes.perfil.FabricaDePerfis;
+import br.ufla.dcc.ppoo.padroes.perfil.FabricaDoPerfilDoCruzeiro;
 
-/**
- *
- * @author Paulo
- */
-public class TelaSemPadraoDeProjeto extends javax.swing.JFrame {
-    
-    /**
-     * Creates new form TelaComPadraoDeProjeto
-     */
-    public TelaSemPadraoDeProjeto() {
+public class TelaComPadraoDeProjeto extends javax.swing.JFrame {
+
+    private FabricaDePerfis fp;
+
+    public TelaComPadraoDeProjeto() {
+        fp = new FabricaDoPerfilDoCruzeiro();
         initComponents();
-        construirTela();
+        construirTela(fp);
     }
-    
-    private void construirTela() {
-        JPanel painel = new PainelDoTimao();
-        JLabel rotulo = new RotuloDoTimao();
+
+    private void construirTela(FabricaDePerfis fp) {
+        JPanel painel = fp.criarPainel();
+        JLabel rotulo = fp.criarRotulo();
         rotulo.setText("Digite aqui seu nome: ");
-        JTextField caixaDeTexto = new CaixaTextoDoTimao();
+        JTextField caixaDeTexto = fp.criarCaixaDeTexto();
         caixaDeTexto.setColumns(5);
-        JButton botao = new BotaoDoTimao();
-        botao.setText("Enviar");        
-        
+        JButton botao = fp.criarBotao();
+        botao.setText("Enviar");
+
         this.setTitle("Tela Inicial");
         this.setContentPane(painel);
         this.add(rotulo);
         this.add(caixaDeTexto);
         this.add(botao);
+
     }
 
     /**
@@ -85,20 +76,20 @@ public class TelaSemPadraoDeProjeto extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaSemPadraoDeProjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaComPadraoDeProjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaSemPadraoDeProjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaComPadraoDeProjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaSemPadraoDeProjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaComPadraoDeProjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaSemPadraoDeProjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaComPadraoDeProjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaSemPadraoDeProjeto().setVisible(true);
+                new TelaComPadraoDeProjeto().setVisible(true);
             }
         });
     }

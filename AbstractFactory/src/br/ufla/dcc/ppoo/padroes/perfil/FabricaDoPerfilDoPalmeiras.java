@@ -1,22 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package perfis;
+package br.ufla.dcc.ppoo.padroes.perfil;
 
-import elementos_graficos.BotaoDoPalmeiras;
-import elementos_graficos.CaixaTextoDoPalmeiras;
-import elementos_graficos.PainelDoPalmeiras;
-import elementos_graficos.RotuloDoPalmeiras;
+import br.ufla.dcc.ppoo.padroes.elementos_graficos.BotaoDoPalmeiras;
+import br.ufla.dcc.ppoo.padroes.elementos_graficos.CaixaTextoDoPalmeiras;
+import br.ufla.dcc.ppoo.padroes.elementos_graficos.PainelDoPalmeiras;
+import br.ufla.dcc.ppoo.padroes.elementos_graficos.RotuloDoPalmeiras;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Paulo
- */
 public class FabricaDoPerfilDoPalmeiras extends FabricaDePerfis {
 
     @Override

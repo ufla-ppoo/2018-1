@@ -169,12 +169,10 @@ public class TelaPrincipal extends JFrame implements Runnable {
             
             // Constrói a tela com o tema escolhido
             FabricaAbstrataElementosGraficos fabrica =
-                    (FabricaAbstrataElementosGraficos) Class.forName(tema).newInstance();
+                    (FabricaAbstrataElementosGraficos) 
+                    Class.forName(tema).newInstance();
             new TelaPrincipal(fabrica).setVisible(true);
-        } catch (InstantiationException | 
-                ClassNotFoundException | 
-                IllegalAccessException |
-                IOException ex) {
+        } catch (Exception ex) { 
             JOptionPane.showMessageDialog(null, "Não foi possível carregar o tema da aplicação. Favor verificar o aquivo de configurações!", 
                     "Ops...", JOptionPane.ERROR_MESSAGE);
             new TelaPrincipal(new FabricaConvElementosGraficos()).setVisible(true);
