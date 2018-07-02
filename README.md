@@ -18,5 +18,6 @@ Este repositório contém o código-fonte dos projetos desenvolvidos em sala de 
 * [Abstract Factory](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/AbstractFactory) - exemplo de utilizado na aula sobre Padrões de Projeto - Parte 1.
 * [Singleton](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/Singleton) - exemplo de utilizado na aula sobre Padrões de Projeto - Parte 1.
 * [TopNews - com padrões](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/TopNewsComPadroes) - solução do exercício proposto na aula sobre Padrões de Projeto - Parte 1.
+* [Projeto Tem Café](https://github.com/ufla-ppoo/projetos-2018-1/tree/master/ProjetoTemCafe) - exemplo utilizado na aula sobre Padrões de Projeto - Parte 2.
 
  
