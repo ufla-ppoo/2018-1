@@ -75,7 +75,7 @@ public class TelaPrincipal extends JFrame implements Runnable {
         // Define o título da tela
         super("Lista de Tarefas");
 
-       // Define que fechar a janela, a execução aplicação será encerrada
+        // Define que fechar a janela, a execução aplicação será encerrada
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Evita que a tela possa ser redimensionada pelo usuário

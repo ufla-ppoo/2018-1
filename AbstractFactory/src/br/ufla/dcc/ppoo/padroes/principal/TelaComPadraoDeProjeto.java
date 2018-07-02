@@ -5,14 +5,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import br.ufla.dcc.ppoo.padroes.perfil.FabricaDePerfis;
-import br.ufla.dcc.ppoo.padroes.perfil.FabricaDoPerfilDoCruzeiro;
+import br.ufla.dcc.ppoo.padroes.perfil.FabricaDoPerfilDoTimao;
 
 public class TelaComPadraoDeProjeto extends javax.swing.JFrame {
 
     private FabricaDePerfis fp;
 
     public TelaComPadraoDeProjeto() {
-        fp = new FabricaDoPerfilDoCruzeiro();
+        fp = new FabricaDoPerfilDoTimao();
         initComponents();
         construirTela(fp);
     }

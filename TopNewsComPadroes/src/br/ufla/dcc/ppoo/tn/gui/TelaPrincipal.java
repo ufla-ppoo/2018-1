@@ -165,7 +165,8 @@ public class TelaPrincipal extends JFrame implements Runnable {
     public static void main(String[] args) {
         try {
             // Lê arquivo de configuração
-            String tema = Configuracao.obterInstancia("config.txt").obterNomeFabrica();
+            String tema = Configuracao.
+                    obterInstancia("config.txt").obterNomeFabrica();
             
             // Constrói a tela com o tema escolhido
             FabricaAbstrataElementosGraficos fabrica =
