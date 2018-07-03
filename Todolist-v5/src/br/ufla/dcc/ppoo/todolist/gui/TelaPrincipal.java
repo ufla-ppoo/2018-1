@@ -11,6 +11,9 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -24,8 +27,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -34,8 +35,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
@@ -74,9 +73,16 @@ public class TelaPrincipal extends JFrame implements Runnable {
     public TelaPrincipal() {
         // Define o título da tela
         super("Lista de Tarefas");
+        
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                confirmarSaida();
+            }
+        });
 
         // Define que fechar a janela, a execução aplicação será encerrada
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         // Evita que a tela possa ser redimensionada pelo usuário
         setResizable(false);
@@ -95,6 +101,16 @@ public class TelaPrincipal extends JFrame implements Runnable {
 
         // Redimensiona automaticamente a tela, com base nos componentes existentes na mesma
         pack();
+    }
+    
+    private void confirmarSaida() {
+        if (JOptionPane.YES_OPTION ==
+                JOptionPane.showConfirmDialog(this, "Deseja realmente sair do programa?",
+                        "Confirmação", 
+                        JOptionPane.YES_NO_OPTION, 
+                        JOptionPane.QUESTION_MESSAGE)) {
+            System.exit(0);
+        }
     }
 
     private void iniciarRelogio() {
