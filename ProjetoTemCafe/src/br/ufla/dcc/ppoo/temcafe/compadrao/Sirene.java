@@ -6,7 +6,7 @@ import sun.audio.AudioStream;
 
 public class Sirene implements Observador {
 
-    private final int VOL_MINIMO = 400;
+    private final int VOL_MINIMO = 500;
 
     private void tocarSirene() {
         try {
